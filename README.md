@@ -1,2 +1,8 @@
-# ejemplo-herencia
-Ejemplo CRUD con herencia BDD
+# Ejemplo CRUD con herencia en BDD
+
+
+##Instrucciones
+
+1. Hacer Data Import del archivo dump catalogoSoftwareDump.sql en MySQL Workbench.
+2. Configurar la resourse jdbc/herenciaDb en servidor glassfish para que se conecte con la base restaurada.
+3. Ejecutar aplicacion
