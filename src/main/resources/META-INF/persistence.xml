@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="herenciaPU">
+    <jta-data-source>jdbc/herenciaDb</jta-data-source>
+    <class>com.herencia.models.InstanciaBaseDeDatos</class>
+    <class>com.herencia.models.Fabricante</class>
+    <class>com.herencia.models.MotorBaseDeDatos</class>
+    <class>com.herencia.models.SoftwareXNavegadorWeb</class>
+    <class>com.herencia.models.Almacenamiento</class>
+    <class>com.herencia.models.Respaldo</class>
+    <class>com.herencia.models.Clasificacion</class>
+    <class>com.herencia.models.Requerimiento</class>
+    <class>com.herencia.models.Software</class>
+    <class>com.herencia.models.TipoPlataforma</class>
+    <class>com.herencia.models.Procesador</class>
+    <class>com.herencia.models.ServidorDeAplicaciones</class>
+    <class>com.herencia.models.SistemaOperativo</class>
+    <class>com.herencia.models.DataCenter</class>
+    <class>com.herencia.models.SoftwareXEquipo</class>
+    <class>com.herencia.models.Funcionario</class>
+    <class>com.herencia.models.Lenguaje</class>
+    <class>com.herencia.models.AreaFuncional</class>
+    <class>com.herencia.models.EquipoVirtual</class>
+    <class>com.herencia.models.Plataforma</class>
+    <class>com.herencia.models.Ambito</class>
+    <class>com.herencia.models.Cuchilla</class>
+    <class>com.herencia.models.Persona</class>
+    <class>com.herencia.models.Equipo</class>
+    <class>com.herencia.models.Dominio</class>
+    <class>com.herencia.models.NavegadorWeb</class>
+    <class>com.herencia.models.EquipoFisico</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

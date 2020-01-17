@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputText value="Ejemplo CRUD con Herencia a nivel de BDD" />
+        <p:messages showDetail="true" showSummary="true" id="messages" closable="true"/>
+        <h:form>
+            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                    <f:facet name="start">
+                        <h:graphicImage library="images" name="ajaxloading.gif" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+            </p:ajaxStatus>
+            
+            <p:dataTable
+                        id="servidores" 
+                        var="servidor" 
+                        value="#{servidorController.listaServidores}" 
+                        editable="true" 
+                        rowKey="#{servidor.idServidorDeAplicaciones}"
+                        selection="#{servidorController.servidor}" 
+                        selectionMode="single">
+                        
+                        <f:facet name="header">  
+                            Lista de Servidores
+                        </f:facet>
+                        
+                        <p:ajax event="rowEdit" listener="#{servidorController.editListener}" />
+                        
+                        <p:column headerText="Nombre Plataforma">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{servidor.idPlataforma.nombre}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Nombre Servidor">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{servidor.nombre}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Tamaño">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.tamanio}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{servidor.idPlataforma.tamanio}" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Uso Disco">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.usoDisco}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{servidor.idPlataforma.usoDisco}" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                         <p:column headerText="Estado">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.estado ? 'Activo' : 'Inactivo'}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.estado}" style="width:100%">
+                                        <f:selectItem itemValue="true" itemLabel="Activo"/>
+                                        <f:selectItem itemValue="false" itemLabel="Inactivo"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Tipo Plataforma">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idTipoPlataforma.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idTipoPlataforma}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaTiposPlataforma}" var="tipo" itemValue="#{tipo}" 
+                                                       itemLabel="#{tipo.nombre}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Usuario Admin">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idAdmin.nombreUsuario}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idAdmin}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaFuncionarios}" var="funcionario" itemValue="#{funcionario}" 
+                                                       itemLabel="#{funcionario.nombreUsuario}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Usuario Operador">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idOperador.nombreUsuario}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idOperador}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaFuncionarios}" var="funcionario" itemValue="#{funcionario}" 
+                                                       itemLabel="#{funcionario.nombreUsuario}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Fabricante">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idFabricante.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idFabricante}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaFabricantes}" var="fabricante" itemValue="#{fabricante}" 
+                                                       itemLabel="#{fabricante.nombre}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Equipo">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idEquipo.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idEquipo}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaEquipos}" var="equipo" itemValue="#{equipo}" 
+                                                       itemLabel="#{equipo.nombre}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Software">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{servidor.idPlataforma.idSoftware.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{servidor.idPlataforma.idSoftware}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItems value="#{servidorController.listaSoftware}" var="software" itemValue="#{software}" 
+                                                       itemLabel="#{software.nombre}"/>
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column headerText="Editar" style="width:50px">
+                            <p:rowEditor />
+                        </p:column>
+                        
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="Agregar" actionListener="#{servidorController.reiniciarEntidadSeleccionada}" oncomplete="PF('servidorDialogo').show();" update="servidores">
+                                <p:ajax event="dialogReturn" update="servidores"/>
+                            </p:commandButton>
+                        </f:facet>
+
+                        
+                        
+            </p:dataTable>
+            
+            <p:contextMenu for="servidores">
+                <p:menuitem value="Eliminar" update="servidores" icon="ui-icon-close" actionListener="#{servidorController.eliminarServidor}" ajax="false"/>
+            </p:contextMenu>
+            </h:form>
+           <h:form id="dialogoForm" prependId="false">
+                <p:dialog header="Agregar Servidor de Aplicaciones" widgetVar="servidorDialogo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="instanciaDetalle" style="text-align:center;">
+                        <p:panelGrid  columns="2" columnClasses="label,value">
+                            <h:outputText value="Nombre Plataforma" />
+                            <h:inputText value="#{servidorController.plataforma.nombre}"/>
+
+                            <h:outputText value="Nombre Servidor" />
+                            <h:inputText value="#{servidorController.servidor.nombre}" />
+                            
+                            <h:outputText value="Tamaño Plataforma" />
+                            <h:inputText value="#{servidorController.plataforma.tamanio}" />
+
+                            <h:outputText value="Uso Disco" />
+                            <h:inputText value="#{servidorController.plataforma.usoDisco}" />
+
+                            <h:outputText value="Estado" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.estado}" style="width:100%">
+                                <f:selectItem itemValue="true" itemLabel="Activo" />
+                                <f:selectItem itemValue="false" itemLabel="Inactivo"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Tipo Plataforma" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idTipoPlataforma}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaTiposPlataforma}" var="tipo" itemValue="#{tipo}" 
+                                               itemLabel="#{tipo.nombre}"/>
+                            </h:selectOneMenu>
+                        
+                            <h:outputText value="Usuario Admin" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idAdmin}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaFuncionarios}" var="funcionario" itemValue="#{funcionario}" 
+                                               itemLabel="#{funcionario.nombreUsuario}"/>
+                            </h:selectOneMenu>
+                        
+                            <h:outputText value="Usuario Operador" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idOperador}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaFuncionarios}" var="funcionario" itemValue="#{funcionario}" 
+                                               itemLabel="#{funcionario.nombreUsuario}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Fabricante" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idFabricante}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaFabricantes}" var="fabricante" itemValue="#{fabricante}" 
+                                               itemLabel="#{fabricante.nombre}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Equipo" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idEquipo}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaEquipos}" var="equipo" itemValue="#{equipo}" 
+                                               itemLabel="#{equipo.nombre}"/>
+                            </h:selectOneMenu>
+
+                            <h:outputText value="Software" />
+                            <h:selectOneMenu value="#{servidorController.plataforma.idSoftware}" style="width:100%" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{servidorController.listaSoftware}" var="software" itemValue="#{software}" 
+                                               itemLabel="#{software.nombre}"/>
+                            </h:selectOneMenu>
+
+                            <f:facet name="footer">
+                                <h:commandButton value="Agregar" actionListener="#{servidorController.registrarServidor}" />
+                            </f:facet>
+                            
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+    </h:body>
+</html>
+
